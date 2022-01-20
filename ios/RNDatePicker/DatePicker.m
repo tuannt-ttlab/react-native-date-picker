@@ -51,6 +51,7 @@
     if ((self = [super initWithFrame:frame])) {
         [self addTarget:self action:@selector(didChange)
        forControlEvents:UIControlEventValueChanged];
+        [self addTarget:self action:@selector(didTap) forControlEvents:UIControlEventEditingDidBegin];
         if(@available(iOS 13, *)) {
             self.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
         }
@@ -119,6 +120,10 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
     if (_onChange) {
         _onChange(@{ @"timestamp": @(self.date.timeIntervalSince1970 * 1000.0) });
     }
+}
+
+- (void) didTap {
+    [self resignFirstResponder];
 }
 
 - (void)setDatePickerMode:(UIDatePickerMode)datePickerMode
